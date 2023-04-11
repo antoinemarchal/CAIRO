@@ -1,0 +1,6 @@
+*.o
+*.dat
+*.mod
+*~
+.DS_Store
+*.txt
