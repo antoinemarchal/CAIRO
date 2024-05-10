@@ -293,8 +293,6 @@ contains
                 b_params(i) = fit_params(3+(3*(i-1)),1,1)
              end do
           end if
-
-          stop
                     
           if (regul .eqv. .false.) then
              print*, "regul == .false. not available"
