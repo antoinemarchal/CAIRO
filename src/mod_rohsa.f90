@@ -353,6 +353,7 @@ contains
             (/ 3*n_gauss, dim_data(2), dim_data(3)/))       
 
     else
+       !Initialize with init spectrum all lines
        do k=1,dim_data(2)
           do l=1,dim_data(3)
              grid_params(:,k,l) = params_init
