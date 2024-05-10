@@ -22,4 +22,5 @@
     ,ub_amp = 0.0d0
     ,maxiter = 800
     ,iprint = 25
+    ,descent = .false.
     /
