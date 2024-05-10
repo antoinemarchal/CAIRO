@@ -293,6 +293,8 @@ contains
                 b_params(i) = fit_params(3+(3*(i-1)),1,1)
              end do
           end if
+
+          stop
                     
           if (regul .eqv. .false.) then
              print*, "regul == .false. not available"
@@ -305,7 +307,7 @@ contains
                 print*,  "Update level", n
                 ! call upgrade(cube_mean, fit_params, power, n_gauss, dim_cube(1), lb_sig, ub_sig, maxiter, m, iprint)
              end if
-            
+
              if (n > 0 .and. n < nside) then
                 allocate(std_map(dim_cube(1), power, power))
                 
@@ -347,8 +349,6 @@ contains
                 close(11)
              end if
           end if
-
-          stop
           
           ! Propagate solution on new grid (higher resolution)
           call go_up_level(fit_params)
