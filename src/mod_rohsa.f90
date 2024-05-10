@@ -348,6 +348,8 @@ contains
              end if
           end if
 
+          stop
+          
           ! Propagate solution on new grid (higher resolution)
           call go_up_level(fit_params)
           write(*,*) " "
