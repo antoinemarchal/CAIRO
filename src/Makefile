@@ -2,10 +2,10 @@
 FC=ifort
 # FC=gfortran
 
-# GFLAGS=-Wall -Wextra -pedantic -std=f2008 -g -O2 -fno-second-underscore -Wno-compare-reals -fcheck=all -fimplicit-none -fbacktrace -gdwarf-2 -fall-intrinsics -Wno-unused-function -fcheck=bounds -I/usr/local/include
+# GFLAGS=-Wall -Wextra -pedantic -std=f2008 -g -O2 -fno-second-underscore -Wno-compare-reals -fcheck=all -fimplicit-none -fbacktrace -gdwarf-2 -fall-intrinsics -Wno-unused-function -fcheck=bounds -I/usr/local/include -ffree-line-length-512
 
 # GFLAGS= -O2 -fast -I/usr/local/include #-ffree-line-length-512 #-fbounds-check   ##INTEL
-GFLAGS= -O2 -I/usr/local/include -ffixed-line-length-none #-ffree-line-length-512 #-fbounds-check            ##FORTRAN
+GFLAGS= -O2 -I/usr/local/include -ffree-line-length-512 #-fbounds-check            ##FORTRAN
 CFLAGS= -lm -g -O2 -lcfitsio
 
 OUT=CAIRO
