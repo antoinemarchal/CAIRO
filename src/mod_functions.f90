@@ -313,8 +313,11 @@ contains
     do i=1, n_gauss       
        ! amplitude bounds
        lb(1+(3*(i-1))) = lb_amp;
-       ub(1+(3*(i-1))) = ub_amp;
-       ! ub(1+(3*(i-1))) = max_line;
+       if (max_line < lb_amp) then
+          ub(1+(3*(i-1))) = lb_amp
+       else
+          ub(1+(3*(i-1))) = max_line;
+       end if
        
        ! mean bounds 
        lb(2+(3*(i-1))) = 0._xp;

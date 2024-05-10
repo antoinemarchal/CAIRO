@@ -141,6 +141,8 @@ contains
     print*, "lambda_mu_corr_narrow = ", lambda_mu_corr_narrow
     print*, "lambda_mu_corr_broad = ", lambda_mu_corr_broad
 
+    print*, "lambda_r = ", lambda_r
+
     ! print*, "amp_fact_init = ", amp_fact_init
     ! print*, "sig_init = ", sig_init
     ! print*, "lb_sig_init = ", lb_sig_init

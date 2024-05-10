@@ -1,15 +1,12 @@
-#fortran compiler
+#intel or fortran compiler
 FC=ifort
 # FC=gfortran
-# FC=mpif90
 
 # GFLAGS=-Wall -Wextra -pedantic -std=f2008 -g -O2 -fno-second-underscore -Wno-compare-reals -fcheck=all -fimplicit-none -fbacktrace -gdwarf-2 -fall-intrinsics -Wno-unused-function -fcheck=bounds -I/usr/local/include
 
-# GFLAGS= -O2 -I/usr/local/include -ffixed-line-length-none -Wno-uninitialized -Wall -fbounds-check
-GFLAGS= -O2 -fast -I/usr/local/include #-ffree-line-length-512 #-fbounds-check
-
-CFLAGS= -lm -g -O2 -lcfitsio #-openmp -llapack
-# -L/Users/antoinemarchal/mylib/cfitsio-master
+# GFLAGS= -O2 -fast -I/usr/local/include #-ffree-line-length-512 #-fbounds-check   ##INTEL
+GFLAGS= -O2 -I/usr/local/include -ffree-line-length-512 #-fbounds-check            ##FORTRAN
+CFLAGS= -lm -g -O2 -lcfitsio
 
 OUT=CAIRO
 

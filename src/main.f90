@@ -164,8 +164,8 @@ program ROHSA
 
   !Check that lb_amp is not 0.
   if (lb_amp .eq. 0._xp) then
-     print*, "lower bound amplitude must be strictely positive (not 0)."
-     stop
+     print*, "lower bound amplitude must be strictely positive (not 0)." !BECAUSE OF RATIO lines
+     ! stop
   end if
 
   !Call ROHSA subroutine
