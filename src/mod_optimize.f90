@@ -123,7 +123,8 @@ contains
     real(xp) :: g    
     real(xp), dimension(dim_v) :: model
 
-    integer :: start, finish, delta
+    integer :: start, finish
+    real(xp) :: delta
 
     g = 0._xp
     model = 0._xp
@@ -186,7 +187,8 @@ contains
     real(xp), dimension(:,:,:), allocatable :: deriv
     real(xp), dimension(:), allocatable :: model
 
-    integer :: start, finish, delta
+    integer :: start, finish
+    real(xp) :: delta
 
     allocate(deriv(3*n_gauss, dim_y, dim_x))
     allocate(residual(dim_v, dim_y, dim_x))
@@ -488,7 +490,8 @@ contains
     real(xp), dimension(:,:,:), allocatable :: deriv
     real(xp), dimension(:), allocatable :: model
 
-    integer :: start, finish, delta
+    integer :: start, finish
+    real(xp) :: delta
 
     allocate(deriv(3*n_gauss, dim_y, dim_x))
     allocate(residual(dim_v, dim_y, dim_x))
