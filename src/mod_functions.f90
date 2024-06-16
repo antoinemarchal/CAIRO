@@ -470,7 +470,7 @@ contains
        ! call minimize(n_beta, m, beta, lb, ub, cube, n_gauss, dim_v, dim_y, dim_x, lambda_amp, lambda_mu, lambda_sig, &
        !      lambda_var_amp, lambda_var_mu, lambda_var_sig, lambda_lym_sig, maxiter, kernel, iprint, std_map, lym, c_lym)
     else
-       if (n_gauss .eq. 6) then
+       if (n_gauss .eq. 6 .or. n_gauss .eq. 8) then
           call minimize_norm_single(n_beta, m, beta, lb, ub, cube, n_gauss, dim_v, dim_y, dim_x, lambda_amp, lambda_mu, lambda_sig, &
                lambda_var_amp, lambda_var_mu, lambda_var_sig, lambda_lym_sig, maxiter, kernel, iprint, std_map, lym, c_lym, &
                lambda_sig_corr_narrow, lambda_sig_corr_broad, lambda_mu_corr_narrow, lambda_mu_corr_broad, lambda_r, params_lsf, &
@@ -481,7 +481,7 @@ contains
                lambda_sig_corr_narrow, lambda_sig_corr_broad, lambda_mu_corr_narrow, lambda_mu_corr_broad, lambda_r, params_lsf, &
                delta_1, delta_2, delta_3, delta_4)
        else
-          print*, "n_gauss must be 6 (Narrow) or 12 (Narrow and Broad)"
+          print*, "n_gauss must be 6 (Narrow), 8 (Narrow extended), or 12 (Narrow and Broad)"
           stop
        end if
     end if
