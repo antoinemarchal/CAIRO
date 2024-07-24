@@ -337,6 +337,47 @@ contains
   end subroutine init_bounds
 
 
+  subroutine init_bounds_single(line, n_gauss, dim_v, lb, ub, lb_sig, ub_sig, ib_sig, lb_amp, ub_amp)
+    !! Initialize parameters bounds for optimization
+    implicit none
+    
+    integer, intent(in) :: n_gauss !! number of Gaussian
+    integer, intent(in) :: dim_v !! dimension along v axis
+    real(xp), intent(in) :: lb_sig !! lower bound sigma
+    real(xp), intent(in) :: ub_sig !! upper bound sigma
+    real(xp), intent(in) :: ib_sig !! intermediate bound sigma
+    real(xp), intent(in) :: lb_amp !! lower bound amplitude
+    real(xp), intent(in) :: ub_amp !! upper bound amplitude
+    real(xp), intent(in), dimension(dim_v) :: line !! spectrum   
+    real(xp), intent(inout), dimension(3*n_gauss) :: lb !! lower bounds
+    real(xp), intent(inout), dimension(3*n_gauss) :: ub !! upper bounds
+    
+    integer :: i
+    real(xp) :: max_line
+
+    max_line = 0._xp
+    max_line = maxval(line)
+    
+    do i=1, n_gauss       
+       ! amplitude bounds
+       lb(1+(3*(i-1))) = lb_amp;
+       if (max_line < lb_amp) then
+          ub(1+(3*(i-1))) = lb_amp
+       else
+          ub(1+(3*(i-1))) = max_line;
+       end if
+       
+       ! mean bounds 
+       lb(2+(3*(i-1))) = 0._xp;
+       ub(2+(3*(i-1))) = dim_v;
+       
+       ! sigma bounds 
+       lb(3+(3*(i-1))) = lb_sig;
+       ub(3+(3*(i-1))) = ib_sig;
+    end do
+  end subroutine init_bounds_single
+
+
   subroutine upgrade(cube, params, power, n_gauss, dim_v, lb_sig, ub_sig, maxiter, m, iprint)
     !! Upgrade parameters (spectra to spectra) using minimize function (here based on L-BFGS-B optimization module)
     implicit none
@@ -449,7 +490,14 @@ contains
     !Bounds
     do j=1, dim_x
        do i=1, dim_y
-          call init_bounds(cube(:,i,j), n_gauss, dim_v, lb_3D(:,i,j), ub_3D(:,i,j), lb_sig, ub_sig, ib_sig, lb_amp, ub_amp)
+          if (n_gauss .eq. 6 .or. n_gauss .eq. 8) then
+             call init_bounds_single(cube(:,i,j), n_gauss, dim_v, lb_3D(:,i,j), ub_3D(:,i,j), lb_sig, ub_sig, ib_sig, lb_amp, ub_amp)
+          elseif (n_gauss .eq. 12) then
+             call init_bounds(cube(:,i,j), n_gauss, dim_v, lb_3D(:,i,j), ub_3D(:,i,j), lb_sig, ub_sig, ib_sig, lb_amp, ub_amp)
+          else
+             print*, "n_gauss must be 6 (Narrow), 8 (Narrow extended), or 12 (Narrow and Broad)"
+             stop
+          end if
        end do
     end do
 
