@@ -130,8 +130,8 @@ contains
     model = 0._xp
     
     do i=1, n_gauss
-       delta = 5._xp * params(3+(3*(i-1)))
-       ! delta = 5._xp * sqrt(params(3+(3*(i-1)))**2._xp + lsf(i)**2._xp)
+       ! delta = 5._xp * params(3+(3*(i-1)))
+       delta = 5._xp * sqrt(params(3+(3*(i-1)))**2._xp + lsf(i)**2._xp)
        start = int(params(2+(3*(i-1))) - delta)
        finish = int(params(2+(3*(i-1))) + delta)
        if (start .le. 1) then 
@@ -144,8 +144,8 @@ contains
        ! stop
        ! do k=1, dim_v
        do k=start, finish
-          g = gaussian(k, params(1+(3*(i-1))), params(2+(3*(i-1))), params(3+(3*(i-1))))
-          ! g = gaussian_lsf(k, params(1+(3*(i-1))), params(2+(3*(i-1))), params(3+(3*(i-1))), lsf(i))
+          ! g = gaussian(k, params(1+(3*(i-1))), params(2+(3*(i-1))), params(3+(3*(i-1))))
+          g = gaussian_lsf(k, params(1+(3*(i-1))), params(2+(3*(i-1))), params(3+(3*(i-1))), lsf(i))
           model(k) = model(k) + g
        enddo
     enddo
@@ -292,8 +292,8 @@ contains
              g((n_beta-n_gauss)+i) = g((n_beta-n_gauss)+i) - (lambda_var_sig * (image_sig(j,l) - b_params(i)) * (image_sig(j,l) / b_params(i)**2._xp))
              
              if (ABS(std_map(1,j,l)) > 0._xp) then
-                ! delta = 5._xp * sqrt(params(3+(3*(i-1)),j,l)**2._xp + params_lsf(i)**2._xp)
-                delta = 5._xp * params(3+(3*(i-1)),j,l)
+                delta = 5._xp * sqrt(params(3+(3*(i-1)),j,l)**2._xp + params_lsf(i)**2._xp)
+                ! delta = 5._xp * params(3+(3*(i-1)),j,l)
                 start = int(params(2+(3*(i-1)),j,l) - delta)
                 finish = int(params(2+(3*(i-1)),j,l) + delta)
                 if (start < 1) then 
@@ -304,28 +304,28 @@ contains
                 end if
                 do k=start, finish
                 ! do k=1, dim_v                          
-                   deriv(1+(3*(i-1)),j,l) = deriv(1+(3*(i-1)),j,l) &
-                        + (dG_da(k, params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l)) &
-                        * (residual(k,j,l)/std_map(k,j,l)**2._xp)) 
-                   
-                   deriv(2+(3*(i-1)),j,l) = deriv(2+(3*(i-1)),j,l) &
-                        + (dG_dmu(k, params(1+(3*(i-1)),j,l), params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l)) &
-                        * (residual(k,j,l)/std_map(k,j,l)**2._xp)) 
-                   
-                   deriv(3+(3*(i-1)),j,l) = deriv(3+(3*(i-1)),j,l) &
-                        + (dG_dsig(k, params(1+(3*(i-1)),j,l), params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l)) &
-                        * (residual(k,j,l)/std_map(k,j,l)**2._xp))
                    ! deriv(1+(3*(i-1)),j,l) = deriv(1+(3*(i-1)),j,l) &
-                   !      + (dGlsf_da(k, params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l), params_lsf(i)) &
+                   !      + (dG_da(k, params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l)) &
                    !      * (residual(k,j,l)/std_map(k,j,l)**2._xp)) 
                    
                    ! deriv(2+(3*(i-1)),j,l) = deriv(2+(3*(i-1)),j,l) &
-                   !      + (dGlsf_dmu(k, params(1+(3*(i-1)),j,l), params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l), params_lsf(i)) &
+                   !      + (dG_dmu(k, params(1+(3*(i-1)),j,l), params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l)) &
                    !      * (residual(k,j,l)/std_map(k,j,l)**2._xp)) 
                    
                    ! deriv(3+(3*(i-1)),j,l) = deriv(3+(3*(i-1)),j,l) &
-                   !      + (dGlsf_dsig(k, params(1+(3*(i-1)),j,l), params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l), params_lsf(i)) &
+                   !      + (dG_dsig(k, params(1+(3*(i-1)),j,l), params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l)) &
                    !      * (residual(k,j,l)/std_map(k,j,l)**2._xp))
+                   deriv(1+(3*(i-1)),j,l) = deriv(1+(3*(i-1)),j,l) &
+                        + (dGlsf_da(k, params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l), params_lsf(i)) &
+                        * (residual(k,j,l)/std_map(k,j,l)**2._xp)) 
+                   
+                   deriv(2+(3*(i-1)),j,l) = deriv(2+(3*(i-1)),j,l) &
+                        + (dGlsf_dmu(k, params(1+(3*(i-1)),j,l), params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l), params_lsf(i)) &
+                        * (residual(k,j,l)/std_map(k,j,l)**2._xp)) 
+                   
+                   deriv(3+(3*(i-1)),j,l) = deriv(3+(3*(i-1)),j,l) &
+                        + (dGlsf_dsig(k, params(1+(3*(i-1)),j,l), params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l), params_lsf(i)) &
+                        * (residual(k,j,l)/std_map(k,j,l)**2._xp))
                 end do
              end if
 
@@ -582,8 +582,8 @@ contains
              g((n_beta-n_gauss)+i) = g((n_beta-n_gauss)+i) - (lambda_var_sig * (image_sig(j,l) - b_params(i)) * (image_sig(j,l) / b_params(i)**2._xp))
              
              if (ABS(std_map(1,j,l)) > 0._xp) then
-                ! delta = 5._xp * sqrt(params(3+(3*(i-1)),j,l)**2._xp + params_lsf(i)**2._xp)
-                delta = 5._xp * params(3+(3*(i-1)),j,l)
+                delta = 5._xp * sqrt(params(3+(3*(i-1)),j,l)**2._xp + params_lsf(i)**2._xp)
+                ! delta = 5._xp * params(3+(3*(i-1)),j,l)
                 start = int(params(2+(3*(i-1)),j,l) - delta)
                 finish = int(params(2+(3*(i-1)),j,l) + delta)
                 if (start < 0) then 
@@ -594,28 +594,28 @@ contains
                 end if
                 do k=start, finish
                 ! do k=1, dim_v                          
-                   deriv(1+(3*(i-1)),j,l) = deriv(1+(3*(i-1)),j,l) &
-                        + (dG_da(k, params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l)) &
-                        * (residual(k,j,l)/std_map(k,j,l)**2._xp)) 
-                   
-                   deriv(2+(3*(i-1)),j,l) = deriv(2+(3*(i-1)),j,l) &
-                        + (dG_dmu(k, params(1+(3*(i-1)),j,l), params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l)) &
-                        * (residual(k,j,l)/std_map(k,j,l)**2._xp)) 
-                   
-                   deriv(3+(3*(i-1)),j,l) = deriv(3+(3*(i-1)),j,l) &
-                        + (dG_dsig(k, params(1+(3*(i-1)),j,l), params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l)) &
-                        * (residual(k,j,l)/std_map(k,j,l)**2._xp))
                    ! deriv(1+(3*(i-1)),j,l) = deriv(1+(3*(i-1)),j,l) &
-                   !      + (dGlsf_da(k, params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l), params_lsf(i)) &
+                   !      + (dG_da(k, params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l)) &
                    !      * (residual(k,j,l)/std_map(k,j,l)**2._xp)) 
                    
                    ! deriv(2+(3*(i-1)),j,l) = deriv(2+(3*(i-1)),j,l) &
-                   !      + (dGlsf_dmu(k, params(1+(3*(i-1)),j,l), params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l), params_lsf(i)) &
+                   !      + (dG_dmu(k, params(1+(3*(i-1)),j,l), params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l)) &
                    !      * (residual(k,j,l)/std_map(k,j,l)**2._xp)) 
                    
                    ! deriv(3+(3*(i-1)),j,l) = deriv(3+(3*(i-1)),j,l) &
-                   !      + (dGlsf_dsig(k, params(1+(3*(i-1)),j,l), params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l), params_lsf(i)) &
-                   !      * (residual(k,j,l)/std_map(k,j,l)**2._xp))  
+                   !      + (dG_dsig(k, params(1+(3*(i-1)),j,l), params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l)) &
+                   !      * (residual(k,j,l)/std_map(k,j,l)**2._xp))
+                   deriv(1+(3*(i-1)),j,l) = deriv(1+(3*(i-1)),j,l) &
+                        + (dGlsf_da(k, params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l), params_lsf(i)) &
+                        * (residual(k,j,l)/std_map(k,j,l)**2._xp)) 
+                   
+                   deriv(2+(3*(i-1)),j,l) = deriv(2+(3*(i-1)),j,l) &
+                        + (dGlsf_dmu(k, params(1+(3*(i-1)),j,l), params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l), params_lsf(i)) &
+                        * (residual(k,j,l)/std_map(k,j,l)**2._xp)) 
+                   
+                   deriv(3+(3*(i-1)),j,l) = deriv(3+(3*(i-1)),j,l) &
+                        + (dGlsf_dsig(k, params(1+(3*(i-1)),j,l), params(2+(3*(i-1)),j,l), params(3+(3*(i-1)),j,l), params_lsf(i)) &
+                        * (residual(k,j,l)/std_map(k,j,l)**2._xp))  
                 end do
              end if
 

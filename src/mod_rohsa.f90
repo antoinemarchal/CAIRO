@@ -112,15 +112,20 @@ contains
     integer :: j     !! loop index
     integer :: k     !! loop index
     integer :: l     !! loop index
+    integer :: p     !! loop index
 
     integer :: delta_1 ! delta position between center line and line on its left
     integer :: delta_2 ! delta position between center line and line on its right
     integer :: delta_3 ! delta position between center line and line on its right
     integer :: delta_4 ! delta position between center line and line on its right
 
-    integer, dimension(6) :: position = 0._xp
-    integer, dimension(6) :: delta_balmer = 0._xp
-    integer, dimension(6) :: delta_forbidden = 0._xp
+    integer, dimension(:), allocatable :: position != 0._xp
+    integer, dimension(:), allocatable :: delta_balmer != 0._xp
+    integer, dimension(:), allocatable :: delta_forbidden != 0._xp
+
+    allocate(position(n_gauss))
+    allocate(delta_balmer(n_gauss))
+    allocate(delta_forbidden(n_gauss))
         
     print*, "fileout = '",trim(fileout),"'"
     print*, "timeout = '",trim(timeout),"'"
@@ -226,7 +231,7 @@ contains
 
     print*, " "
     print*, "Calculate Delta between lines"
-    do i=1, 6
+    do i=1, n_gauss
        position(i) = params_init(2+(3*(i-1)))
     end do
     delta_1 = position(5) - position(1)
@@ -265,6 +270,13 @@ contains
              if (init_spec .eqv. .true.) then
                 print*, "Use user init params"
                 fit_params(:,1,1) = params_init
+
+                ! !Ajust amp of mean spectrum params
+                ! do p=1,n_gauss
+                ! ! print*, position(p)
+                ! fit_params(1+(3*(p-1)),1,1) = mean_spect(position(p))
+                ! end do
+                
              else
                 if (init_option .eq. "mean") then
                    print*, "Init mean spectrum"        
@@ -353,10 +365,20 @@ contains
             (/ 3*n_gauss, dim_data(2), dim_data(3)/))       
 
     else
-       !Initialize with init spectrum all lines
+       !Initialize with init spectrum all lines #FIXME
        do k=1,dim_data(2)
           do l=1,dim_data(3)
              grid_params(:,k,l) = params_init
+          end do
+       end do
+
+       !Adjust amplitude to array value at initial position
+       do k=1,dim_data(2)
+          do l=1,dim_data(3)
+             do p=1,n_gauss
+                ! print*, position(p)
+                grid_params(1+(3*(p-1)),k,l) = data(position(p),k,l)
+             end do
           end do
        end do
        
