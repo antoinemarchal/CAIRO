@@ -427,15 +427,15 @@ contains
                 !Corralate amplitude fields narrow and broad components - 0.3 ratio for NII
                 deriv(1+(3*(6-1)),j,l) = deriv(1+(3*(6-1)),j,l) - (lambda_r * &
                      params(1+(3*(4-1)),j,l) / params(1+(3*(6-1)),j,l)**2._xp & 
-                     * (params(1+(3*(4-1)),j,l) / params(1+(3*(6-1)),j,l) - 0.3_xp))                
+                     * (params(1+(3*(4-1)),j,l) / params(1+(3*(6-1)),j,l) - 0.33_xp))                
                 deriv(1+(3*(4-1)),j,l) = deriv(1+(3*(4-1)),j,l) + (lambda_r / params(1+(3*(6-1)),j,l)&
-                     * (params(1+(3*(4-1)),j,l) / params(1+(3*(6-1)),j,l) - 0.3_xp))
+                     * (params(1+(3*(4-1)),j,l) / params(1+(3*(6-1)),j,l) - 0.33_xp))
 
                 deriv(1+(3*(12-1)),j,l) = deriv(1+(3*(12-1)),j,l) - (lambda_r * &
                      params(1+(3*(10-1)),j,l) / params(1+(3*(12-1)),j,l)**2._xp & 
-                     * (params(1+(3*(10-1)),j,l) / params(1+(3*(12-1)),j,l) - 0.3_xp))                
+                     * (params(1+(3*(10-1)),j,l) / params(1+(3*(12-1)),j,l) - 0.33_xp))                
                 deriv(1+(3*(10-1)),j,l) = deriv(1+(3*(10-1)),j,l) + (lambda_r / params(1+(3*(12-1)),j,l)&
-                     * (params(1+(3*(10-1)),j,l) / params(1+(3*(12-1)),j,l) - 0.3_xp))
+                     * (params(1+(3*(10-1)),j,l) / params(1+(3*(12-1)),j,l) - 0.33_xp))
              end if
 
           end do
