@@ -275,11 +275,11 @@ contains
                 f = f + (0.5_xp * lambda_mu_corr_broad * ((params(2+(3*(12-1)),j,l) - params(2+(3*(10-1)),j,l)) - delta_4)**2._xp)
 
                 !Corralate amplitude fields narrow and broad components - 1/3 ratio for OIII
-                f = f + (0.5_xp * lambda_r * ((params(1+(3*(2-1)),j,l) / params(1+(3*(3-1)),j,l)) - 0.33_xp)**2._xp)
-                f = f + (0.5_xp * lambda_r * ((params(1+(3*(8-1)),j,l) / params(1+(3*(9-1)),j,l)) - 0.33_xp)**2._xp)
+                f = f + (0.5_xp * lambda_r * ((params(1+(3*(2-1)),j,l) / params(1+(3*(3-1)),j,l)) - 0.33557_xp)**2._xp)
+                f = f + (0.5_xp * lambda_r * ((params(1+(3*(8-1)),j,l) / params(1+(3*(9-1)),j,l)) - 0.33557_xp)**2._xp)
                 !Corralate amplitude fields narrow and broad components - 0.3 ratio for NII
-                f = f + (0.5_xp * lambda_r * ((params(1+(3*(4-1)),j,l) / params(1+(3*(6-1)),j,l)) - 0.3_xp)**2._xp)
-                f = f + (0.5_xp * lambda_r * ((params(1+(3*(10-1)),j,l) / params(1+(3*(12-1)),j,l)) - 0.3_xp)**2._xp)
+                f = f + (0.5_xp * lambda_r * ((params(1+(3*(4-1)),j,l) / params(1+(3*(6-1)),j,l)) - 0.32787_xp)**2._xp)
+                f = f + (0.5_xp * lambda_r * ((params(1+(3*(10-1)),j,l) / params(1+(3*(12-1)),j,l)) - 0.32787_xp)**2._xp)
              elseif (i .ge. 2 .and. i .le. 4) then
                 !Corralate sigma fields narrow components
                 f = f + (0.5_xp * lambda_sig_corr_narrow * ((params(3+(3*(i-1)),j,l) / params(3+(3*(6-1)),j,l)) - 1._xp)**2._xp)
@@ -570,9 +570,9 @@ contains
                 f = f + (0.5_xp * lambda_mu_corr_narrow * ((params(2+(3*(6-1)),j,l) - params(2+(3*(4-1)),j,l)) - delta_4)**2._xp)
 
                 !Corralate amplitude fields narrow components - 1/3 ratio for OIII
-                f = f + (0.5_xp * lambda_r * ((params(1+(3*(2-1)),j,l) / params(1+(3*(3-1)),j,l)) - 0.33_xp)**2._xp)
+                f = f + (0.5_xp * lambda_r * ((params(1+(3*(2-1)),j,l) / params(1+(3*(3-1)),j,l)) - 0.33557_xp)**2._xp)
                 !Corralate amplitude fields narrow components - 0.3 ratio for NII
-                f = f + (0.5_xp * lambda_r * ((params(1+(3*(4-1)),j,l) / params(1+(3*(6-1)),j,l)) - 0.3_xp)**2._xp)
+                f = f + (0.5_xp * lambda_r * ((params(1+(3*(4-1)),j,l) / params(1+(3*(6-1)),j,l)) - 0.32787_xp)**2._xp)
              elseif (i .ge. 2 .and. i .le. 4) then
                 !Corralate sigma fields narrow components
                 f = f + (0.5_xp * lambda_sig_corr_narrow * ((params(3+(3*(i-1)),j,l) / params(3+(3*(6-1)),j,l)) - 1._xp)**2._xp)
