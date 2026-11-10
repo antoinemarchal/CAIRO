@@ -586,8 +586,8 @@ contains
                 ! delta = 5._xp * params(3+(3*(i-1)),j,l)
                 start = int(params(2+(3*(i-1)),j,l) - delta)
                 finish = int(params(2+(3*(i-1)),j,l) + delta)
-                if (start < 0) then 
-                   start = 0 
+                if (start < 1) then
+                   start = 1
                 end if
                 if (finish > dim_v) then 
                    finish = dim_v
