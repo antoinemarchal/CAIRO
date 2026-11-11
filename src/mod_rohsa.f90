@@ -229,6 +229,11 @@ contains
        end do
     end if
 
+    if (size(params_init) < 3*n_gauss) then
+       print*, "Error: init parameter file has ", size(params_init), " values but 3*n_gauss = ", 3*n_gauss, " are required"
+       stop
+    end if
+
     print*, " "
     print*, "Calculate Delta between lines"
     do i=1, n_gauss
@@ -269,7 +274,7 @@ contains
           if (n == 0) then
              if (init_spec .eqv. .true.) then
                 print*, "Use user init params"
-                fit_params(:,1,1) = params_init
+                fit_params(:,1,1) = params_init(1:3*n_gauss)
 
                 ! !Ajust amp of mean spectrum params
                 ! do p=1,n_gauss
@@ -368,7 +373,7 @@ contains
        !Initialize with init spectrum all lines #FIXME
        do k=1,dim_data(2)
           do l=1,dim_data(3)
-             grid_params(:,k,l) = params_init
+             grid_params(:,k,l) = params_init(1:3*n_gauss)
           end do
        end do
 
